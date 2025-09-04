@@ -98,6 +98,10 @@ namespace Appointments.Application.Services
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null) throw new NotFoundException($"Appointment {id} not found");
 
+            if(entity.Status == AppointmentStatus.Approved)
+                throw new UnauthorizedAccessException("Only managers can cancel appointments");
+
+
             entity.Status = AppointmentStatus.Canceled;
             _repository.Update(entity);
             await _unitOfWork.SaveChangesAsync();

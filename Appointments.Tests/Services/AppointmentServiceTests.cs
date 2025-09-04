@@ -212,5 +212,24 @@ namespace Appointments.Tests.Services
 
              
         }
+
+
+        [Fact]
+        public async Task Cancell_ShouldntCancellApprovedAppointments()
+        {
+
+            // arrange
+            int appointmentId = 3;
+            int userId = 99;
+            var appointment = new Appointment { AppointmentId = appointmentId, UserId = 123 , Status= AppointmentStatus.Approved};
+            var user = new User { UserId = userId, Role = UserRole.Manager };
+
+            _appointmentRepoMock.Setup(r => r.GetByIdAsync(appointmentId)).ReturnsAsync(appointment);
+            _userRepoMock.Setup(r => r.GetByIdAsync(userId)).ReturnsAsync(user);
+
+            // act
+            await Assert.ThrowsAnyAsync<Exception>(async () => await _service.CancelAsync(appointmentId, userId));
+
+        }
     }
 }

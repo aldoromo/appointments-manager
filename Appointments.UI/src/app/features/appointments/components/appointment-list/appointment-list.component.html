@@ -67,7 +67,7 @@
               label="Cancel"
               icon="pi pi-times"
               class="p-button-sm p-button-warning"
-              [disabled]="appt.status === Canceled || appt.status === Approved"
+              [disabled]="appt.status === Canceled"
               (click)="cancel(appt)"
             ></button>
 
