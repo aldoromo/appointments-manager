@@ -1,0 +1,55 @@
+<!-- SHOW LOGIN COMPONENT IF NOT LOGGED IN -->
+
+
+
+
+
+
+<!-- SHOW MAIN LAYOUT AFTER LOGIN -->
+<div>
+  <!-- Navbar -->
+  <nav style="display:flex; justify-content:space-between; align-items:center; padding:10px; ;">
+  
+  <!-- Left side (navigation links) -->
+  <div>
+    <ng-container *ngIf="isManager">
+
+      <a routerLink="users" routerLinkActive="active" style="margin-right:15px;   text-decoration:none;">
+        <span class="pi pi-users"></span>
+        Users</a>
+      </ng-container>
+    <a routerLink="appointments" routerLinkActive="active" style=" text-decoration:none;">
+      <span class="pi pi-calendar"></span>
+      Appointments
+    </a>
+  </div>
+
+  <!-- Right side (username + logout) -->
+  <div style="display:flex; align-items:center; gap:10px;">
+    <span>{{ currentUser }}</span>
+    <button (click)="logout()" style="padding:5px 10px; border:none; border-radius:5px; cursor:pointer;">Logout
+      <span class="pi pi-sign-out" style="margin-left:5px;"></span>
+    </button>
+  </div>
+
+</nav>
+<hr>
+
+  <!-- Body -->
+  <div class="app-body">
+     
+    <div class="app-content">
+      <!-- <div *ngIf="!isLoggedIn">
+        <app-login (loginSuccess)="onLoginSuccess($event)"></app-login>
+      </div> -->
+
+      <!-- <ng-container *ngIf="isLoggedIn"> -->
+        <router-outlet></router-outlet>
+      <!-- </ng-container> -->
+        
+        
+      </div>
+  </div>
+
+</div>
+<!-- Footer -->

@@ -1,0 +1,62 @@
+<h2>Users</h2>
+<div class="p-mb-3">
+  <button
+    pButton
+    type="button"
+    label="Add User"
+    icon="pi pi-plus"
+    (click)="addUser()"
+  ></button>
+</div>
+
+<p-table
+  [value]="users"
+  [paginator]="true"
+  [rows]="5"
+  responsiveLayout="scroll"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Role</th>
+      <th>Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-user>
+    <tr>
+      <td>{{ user.userId }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.role === 0 ? "User" : "Manager" }}</td>
+      <td>
+        <button
+          pButton
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-text"
+          (click)="editUser(user)"
+        ></button>
+        <button
+          pButton
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-text p-button-danger"
+          (click)="deleteUser(user)"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog
+  [(visible)]="displayForm"
+  [modal]="true"
+  header="User Form"
+  [closable]="false"
+>
+  <app-user-form
+  *ngIf="displayForm"
+    [user]="selectedUser"
+    (save)="onFormSave()"
+    (cancel)="onFormCancel()"
+  >
+  </app-user-form>
+</p-dialog>

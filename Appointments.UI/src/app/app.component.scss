@@ -1,0 +1,47 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* altura total de la ventana */
+  margin: 0;
+}
+
+/* Navbar */
+.app-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-left: 0.5rem;
+}
+
+/* Body layout */
+.app-body {
+  display: flex;
+  flex: 1; /* ocupa todo el espacio entre navbar y footer */
+  margin: 1rem;
+  gap: 1rem;
+  min-height: 0; /* importante para que los hijos puedan hacer scroll si es necesario */
+}
+
+/* Sidebar */
+.app-aside {
+  flex: 0 0 250px;
+  overflow-y: auto;
+}
+
+/* Main content */
+.app-content {
+  flex: 1; /* ocupa todo el espacio restante */
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-y: auto; /* scroll si el contenido es largo */
+}
+
+/* Footer */
+.app-footer {
+  text-align: center;
+  padding: 1rem;
+  background: #f1f1f1;
+  border-top: 1px solid #ccc;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}

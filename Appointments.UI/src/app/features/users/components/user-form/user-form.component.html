@@ -1,0 +1,23 @@
+<div class="p-fluid p-mt-6 p-d-flex p-flex-column p-ai-center">
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="username">Name</label>
+        <input id="username" type="text" pInputText formControlName="username" />
+      </div>
+      
+      <div class="p-field">
+        <label for="role">Role</label>
+        <p-dropdown id="role" [options]="roles" formControlName="role"></p-dropdown>
+      </div>
+    </div>
+    
+    <div class="p-dialog-footer">
+      <button pButton type="submit" label="Save" [disabled]="form.invalid" class="mb-3"></button>
+      <br>
+      <button pButton type="button" label="Cancel" class="p-button-secondary" (click)="onCancel()"></button>
+    </div>
+  </form>
+  
+</div>

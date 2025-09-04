@@ -1,0 +1,103 @@
+<h2>Appointments</h2>
+
+<div class="p-mb-3">
+  <button
+    pButton
+    type="button"
+    label="Add Appointment"
+    icon="pi pi-plus"
+    (click)="addAppointment()"
+  ></button>
+</div>
+
+<div *ngFor="let group of groupedAppointments" class="mb-4">
+  <!-- header date -->
+  <h2 class="text-xl font-bold mb-2">
+    {{ group.date | date : "fullDate" }}
+  </h2>
+  <p-divider></p-divider>
+
+  <!-- List-->
+  <div class="grid">
+    <div *ngFor="let appt of group.items" class="col-12 md:col-6 lg:col-4">
+      <p-card [header]="appt.title" [subheader]="appt.time">
+        <ng-template pTemplate="content">
+          <p>{{ appt.title }}</p>
+          <small class="text-gray-500">User: {{ appt.username }}</small>
+          <br />
+          <span
+            class="badge"
+            [ngClass]="{
+              'badge-approved': appt.status === Approved,
+              'badge-canceled': appt.status === Canceled,
+              'badge-pending': appt.status === Pending
+            }"
+          >
+            {{ getTitle(appt.status) | titlecase }}
+          </span>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+          <div class="flex gap-2 flex-wrap">
+            <button
+              pButton
+              type="button"
+              label="Edit"
+              icon="pi pi-pencil"
+              class="p-button-sm p-button-info"
+              [disabled]="appt.status === Canceled || appt.status === Approved"
+              (click)="edit(appt)"
+            ></button>
+
+            <button
+              pButton
+              type="button"
+              label="Delete"
+              icon="pi pi-trash"
+              class="p-button-sm p-button-danger"
+              [disabled]="appt.status === Canceled || appt.status === Approved"
+              (click)="delete(appt)"
+            ></button>
+
+            <!-- Visible for managers -->
+            <button
+              *ngIf="isManager"
+              pButton
+              type="button"
+              label="Cancel"
+              icon="pi pi-times"
+              class="p-button-sm p-button-warning"
+              [disabled]="appt.status === Canceled || appt.status === Approved"
+              (click)="cancel(appt)"
+            ></button>
+
+            <button
+              *ngIf="isManager"
+              pButton
+              type="button"
+              label="Approve"
+              icon="pi pi-check"
+              class="p-button-sm p-button-success"
+              [disabled]="appt.status === Canceled || appt.status === Approved"
+              (click)="approve(appt)"
+            ></button>
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  [(visible)]="displayForm"
+  [modal]="true"
+  header="Appointment Form"
+  [closable]="false"
+>
+  <app-appointment-form
+    *ngIf="this.displayForm"
+    [appointment]="selectedAppointment"
+    (appointmentAdded)="onAppointmentAdded($event)"
+    (cancel)="onFormCancel()"
+  ></app-appointment-form>
+</p-dialog>

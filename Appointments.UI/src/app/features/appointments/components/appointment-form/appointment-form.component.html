@@ -1,0 +1,20 @@
+<form [formGroup]="appointmentForm" (ngSubmit)="submit()" class="p-fluid">
+  <div class="field">
+    <label for="title">Title</label>
+    <input id="title" type="text" pInputText formControlName="title" />
+  </div>
+
+
+  <div class="field">
+    <label for="date">Date</label>
+    <input id="date" type="date" pInputText formControlName="date" />
+  </div>
+
+  <div class="field">
+    <label for="time">Time</label>
+    <input id="time" type="time" pInputText formControlName="time" />
+  </div>
+
+  <button pButton type="submit" label="{{formAction}} Appointment" class="p-mt-2" [disabled]="appointmentForm.invalid"></button>
+  <button pButton type="button" label="Cancel" class="p-button-secondary" (click)="onCancel()"></button>
+</form>

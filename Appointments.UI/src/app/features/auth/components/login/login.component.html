@@ -1,0 +1,50 @@
+<div
+  class="p-fluid p-mt-6 p-d-flex p-flex-column "
+  *ngIf="!createNewUser"
+>
+  <h2>Login</h2>
+  <div class="flex flex-col gap-2">
+    <label for="username">Username</label>
+    <input
+      pInputText
+      id="username"
+      aria-describedby="username-help"
+      [(ngModel)]="username"
+    />
+    <small id="username-help">Enter your username.</small>
+    <br>
+    <small *ngIf="message" id="username-error" class="red-800 m-2">{{message}}</small>
+  </div>
+
+  <div>
+
+    <button
+    pButton
+    label="Login"
+    class="p-mt-3"
+    [disabled]="!username"
+    (click)="login()"
+    ></button>
+  </div>
+    
+  <br>
+  <div style="display: flex; align-items: center; gap: 10px mt-3">
+    <button pButton  label="Sign Up " class="p-button-outlined w-full" styleClass="my-centered-btn" (click)="signUp()">
+    </button>
+  </div>
+</div>
+
+<div class="p-fluid p-mt-6 p-d-flex p-flex-column p-ai-center">
+  <app-user-form
+    *ngIf="createNewUser"
+    (save)="save()"
+    (cancel)="createNewUser = !createNewUser"
+  >
+  </app-user-form>
+</div>
+
+
+
+
+ 
+ 
